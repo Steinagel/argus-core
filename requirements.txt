@@ -1,0 +1,10 @@
+tika
+selenium
+beautifulsoup4
+pandas
+webdriver-manager
+textwrap3
+requests
+lxml
+validators
+schema

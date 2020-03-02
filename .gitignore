@@ -3,7 +3,10 @@
 # Edit at https://www.gitignore.io/?templates=code,python,virtualenv,visualstudio,visualstudiocode
 
 ### Code ###
-.vscode/*
+vscode
+.vscode
+./vscode
+./vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json

@@ -1,7 +1,4 @@
-#!/usr/bin/env python
-import tika
-tika.initVM()
-from tika import parser
-parsed = parser.from_file('testfiles/test.html')
-print(parsed["metadata"])
-print(parsed["content"])
+from app import workflow
+
+if __name__ == '__main__':
+    workflow.run()

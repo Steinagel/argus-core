@@ -2,6 +2,23 @@
 # Created by https://www.gitignore.io/api/code,python,virtualenv,visualstudio,visualstudiocode
 # Edit at https://www.gitignore.io/?templates=code,python,virtualenv,visualstudio,visualstudiocode
 
+### Folder ###
+env
+.env
+./ignore
+.ignore
+.ignore/
+ignore
+ignore/
+./extras/zookeeper/data
+extras/zookeeper/data
+./extras/zookeeper/datalog
+extras/zookeeper/datalog
+./extras/kafka/data
+/extras/kafka/data
+extras/mongo/data/
+/extras/mongo/data/
+./extras/mongo/data/
 ### Code ###
 vscode
 .vscode

@@ -1,8 +1,4 @@
-# Djinn Scrapper
-
-For scrapping recursivly and download medias from pages.
-
-Idea: use with Apache Tika and get it from any language.
+# Argus
 
 ## Getting Started
 

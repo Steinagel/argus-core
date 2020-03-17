@@ -3,8 +3,16 @@
 # Edit at https://www.gitignore.io/?templates=code,python,virtualenv,visualstudio,visualstudiocode
 
 ### Folder ###
+envs/*
 env
 .env
+.envs/*
+.ignore/*
+ignore/*
+envs
+env
+.env
+.envs
 ./ignore
 .ignore
 .ignore/

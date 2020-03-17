@@ -17,7 +17,10 @@ class Scrap:
 
     def get_source_code(self):
         if self.__source_code is None:
-            response = requests.get(self.__url)
+            try:
+                response = requests.get(self.__url)
+            except:
+                return None
             self.__source_code  = response.content
             self.__headers      = response.headers
             self.__cont_type    = self.__headers['Content-Type'] if 'Content-Type' in self.__headers.keys() else False
@@ -31,7 +34,6 @@ class Scrap:
 
             for a_el in a_elements:
                 a_child_url = self.__find_url__(a_el)
-                # print(a_child_url)
                 if valid_url(a_child_url):
                     self.__links.append(a_child_url)
 
@@ -39,13 +41,14 @@ class Scrap:
 
                 for el_child in a_child:
                     el_child_url = self.__find_url__(el_child)
-                    # print(el_child_url)
                     if valid_url(el_child_url):
                         self.__links.append(el_child_url)
         return self.__links
 
     def __get_html(self):
         if self.__html is None:
+            if self.get_source_code() is None:
+                return None
             self.__html = html.fromstring(self.get_source_code())
         return self.__html
 
@@ -64,7 +67,7 @@ class Scrap:
 
         for rep in REPLACES:
             url_ = url_.replace(rep[0], rep[1])
-        
+
         return url_
 
     def __find_url__(self, node):

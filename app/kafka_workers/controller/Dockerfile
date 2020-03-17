@@ -18,12 +18,14 @@ RUN pip install --upgrade pip && pip install -r requirements.txt
 # RUN python -m nltk.downloader stopwords wordnet wordnet_ic punkt sentiwordnet
 RUN pip install watchdog==0.9.0
 
-COPY README.md README.md
+# COPY README.md README.md
 
-COPY app app
 COPY setup.py setup.py
 
 RUN python setup.py install
+
+# Run app
+CMD gunicorn -w ${WORKERS:-1} -b 0.0.0.0:5000 main:app --timeout=1200 --log-level=${LOG_LEVEL:-debug}
 
 # RUN pip install -r requirements.txt
 

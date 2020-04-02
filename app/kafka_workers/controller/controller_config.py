@@ -1,7 +1,7 @@
 from elasticsearch import Elasticsearch
 import json
 import os
-from jsonschema import validate
+import jsonschema
 from pymongo import MongoClient 
 from bson import json_util, ObjectId
 
@@ -23,9 +23,23 @@ collection = db[db_collection]
 
 def get_all_urls():
     cursor = collection.find({}, { "_id": 0 })
-    list_elements = [json.loads(json_util.dumps(el)) for el in cursor]
+    list_elements = []
+    for el in cursor:
+        obj = {
+            "name": _get_valid_field_value(el, "name"),
+            "enabled": _get_valid_field_value(el, "enabled"),
+            "processing": _get_valid_field_value(el, "processing"),
+            "last_changes": _get_valid_field_value(el, "last_changes"),
+            "first_verify": _get_valid_field_value(el, "first_verify"),
+            "last_verify": _get_valid_field_value(el, "last_verify"),
+            "analysis": _get_valid_field_value(el, "analysis")
+        }
+        list_elements.append(obj)
 
     return {"result": list_elements}
+
+def _get_valid_field_value(obj, field):
+    return obj[field] if field in obj.keys() else ''
 
 def get_url(id):
     try:
@@ -49,15 +63,16 @@ def elsearch(key_value, index=INDEX):
 
 def validateJson(data, schema):
     try:
-        validate(instance=data, schema=schema)
+        jsonschema.validate(instance=data, schema=schema)
     except jsonschema.exceptions.ValidationError as err:
         return False
     return True
 
-def add_new_url(url):
+def add_new_url(data):
     try:
         _data = {
-            "url": url,
+            "url": data["url"],
+            "name": data["name"],
             "md5": None,
             "enabled": True,
             "processing": False,

@@ -6,6 +6,8 @@ import json
 import sys
 import os
 from pprint import pformat
+# import pickle
+# from sklearn.feature_extraction.text import CountVectorizer
 
 ### Logger
 logger = logging.getLogger('consumer')
@@ -51,3 +53,50 @@ def print_assignment(consumer, partitions):
 
 CONSUMER.subscribe(topics, on_assign=print_assignment)
 ##
+
+### Analizer
+# filename = '/usr/src/app/app/kafka_workers/analyser/model.sav'
+
+# count_vector = CountVectorizer()
+# loaded_model = pickle.load(open(filename, 'rb'))
+
+# def has_rw(string):
+#     risky_words = ['news', 'breach', 'data', 'secret','secrets', 'confidential' 'top-secret', 'finance', 'financial', 'account', 'accounts']
+    
+#     for word in string.split():
+#         if word in risky_words:
+#             return True
+#     return False        
+# def classify_risk(score):
+#     if score >= .75:
+#         return 'high'
+#     elif score >= .50:
+#         return 'medium'
+#     else:
+#         return 'low'
+# def predict_page(string):
+#     page_sentences = string.split('.')
+    
+#     probabilities = [{'text': page_sentences[proba[0]],
+#                       'probability': proba[1][1],
+#                       'has_rw': has_rw(page_sentences[proba[0]]),
+#                       'risk_level': 'high' if has_rw(page_sentences[proba[0]]) else classify_risk(proba[1][1])} 
+#                      for proba in enumerate(loaded_model.predict_proba(count_vector.transform(page_sentences)))]
+
+#     return probabilities
+
+def _analyzer(sentences):
+    # total_content = ""
+    # _languages = []
+    # for _sentence in sentences:
+    #     if _sentence["translated"]:
+    #         for wrap_sentence in _sentence["sentence"]:
+    #             _languages.append(wrap_sentence)
+    #             for sentence in wrap_sentence["translations"]:
+    #                 total_content+=sentence["text"]
+    #     else:
+    #         total_content+=_sentence["sentence"]
+
+    # return predict_page(total_content)
+
+    return " "

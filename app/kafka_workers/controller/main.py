@@ -18,9 +18,14 @@ def search():
     data     = request.json
 
     schema = {
-        "type" : "object",
-        "content" : {"type" : "string"}
-    }
+            "type" : "object",
+            "properties": 
+                        {
+                            "content": { "type": "string" },
+                        },
+            "required": ["content"],
+            "additionalProperties": False
+        }
 
     if not validateJson(data, schema):
         return {"message": "Error, expecting structure: {\"content\": \"<string>\"}"}
@@ -31,29 +36,40 @@ def search():
 
 @app.route('/add_url', methods=["POST"])
 def add_url():
-    data      = request.json
+    data = request.json
 
     schema = {
-        "type" : "object",
-        "url" : {"type" : "string"}
-    }
+            "type" : "object",
+            "properties": 
+                        {
+                            "url": { "type": "string" },
+                            "name": { "type": "string" },
+                        },
+            "required": ["url","name"],
+            "additionalProperties": False
+        }
 
     if not validateJson(data, schema):
-        return {"message": "Error, expecting structure: {\"url\": \"<string>\"}"}
+        return {"message": "Error, expecting structure: {\"url\": \"<string>\", \"name\": \"<string>\"}"}
 
-    if add_new_url(data["url"]):
+    if add_new_url(data):
         return {"Status": "success"}
     else:
         return {"Status": "fail"}
 
 @app.route('/disable_url', methods=["PUT"])
 def disable_url():
-    data      = request.json
+    data = request.json
 
     schema = {
-        "type" : "object",
-        "url" : {"type" : "string"}
-    }
+            "type" : "object",
+            "properties": 
+                        {
+                            "url": { "type": "string" },
+                        },
+            "required": ["url"],
+            "additionalProperties": False
+        }
 
     if not validateJson(data, schema):
         return {"message": "Error, expecting structure: {\"url\": \"<string>\"}"}
@@ -68,9 +84,14 @@ def enable_url():
     data      = request.json
 
     schema = {
-        "type" : "object",
-        "url" : {"type" : "string"}
-    }
+            "type" : "object",
+            "properties": 
+                        {
+                            "url": { "type": "string" },
+                        },
+            "required": ["url"],
+            "additionalProperties": False
+        }
 
     if not validateJson(data, schema):
         return {"message": "Error, expecting structure: {\"url\": \"<string>\"}"}

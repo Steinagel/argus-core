@@ -1,7 +1,8 @@
 import json
 from datetime import datetime
-from analyser_config import collection, logger
+from analyser_config import collection, logger, _analyzer
 from bson.objectid import ObjectId
+import pickle
 
 
 def analyse(msg):
@@ -23,6 +24,3 @@ def analyse(msg):
     collection.update_one(query, update)
 
     logger.info(f"Finished analyser {mongo_id}")
-
-def _analyzer(sentences):
-    return " "

@@ -12,3 +12,4 @@ nltk==3.4.5
 elasticsearch==7.6.0
 flask==1.1.1
 jsonschema==3.2.0
+scikit-learn

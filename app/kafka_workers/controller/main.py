@@ -13,7 +13,7 @@ from controller_config import (elsearch,
 app = Flask(__name__)
 CORS(app)
 
-@app.route('/search', methods=["GET"])
+@app.route('/search', methods=["POST"])
 def search():
     data     = request.json
 

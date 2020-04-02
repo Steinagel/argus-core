@@ -22,12 +22,10 @@ db = MONGO_CLIENT[db_database]
 collection = db[db_collection]
 
 def get_all_urls():
-    elements = {}
-    cursor = collection.find({})
-    for el in cursor:
-        elements.update(json.loads(json_util.dumps(el)))
+    cursor = collection.find({}, { "_id": 0 })
+    list_elements = [json.loads(json_util.dumps(el)) for el in cursor]
 
-    return elements
+    return {"result": list_elements}
 
 def get_url(id):
     try:

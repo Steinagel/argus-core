@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from controller_config import (elsearch, 
                                 elasticsearch, 
                                 INDEX, 
@@ -10,7 +11,7 @@ from controller_config import (elsearch,
                                 get_url)
 
 app = Flask(__name__)
-
+CORS(app)
 
 @app.route('/search', methods=["GET"])
 def search():

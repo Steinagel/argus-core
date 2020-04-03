@@ -10,15 +10,15 @@ from base64 import b16encode
 
 def watcher_produce():
      # Get elements on mongodb
-     query = {'enabled': True, 'processing': False } # TODO: optimize: 'last_verify': {'$set': ()}
+     query = {'enabled': True, 'processing': False } # TODO: optimize: 'lastAttpemt': {'$set': ()}
      cursor = collection.find(query)
      
      # Appends found urls if the interval has passed
      urls = []
      for document in cursor:
-          if 'last_verify' not in document.keys() or\
-             document['last_verify'] is None or \
-             document['last_verify']  < datetime.utcnow() - timedelta(minutes=document["interval"]):
+          if 'lastAttpemt' not in document.keys() or\
+             document['lastAttpemt'] is None or \
+             document['lastAttpemt']  < datetime.utcnow() - timedelta(minutes=document["interval"]):
                logger.info(f"found {document['url']}")
                urls.append({"mongo_id": str(document['_id']),"url": document['url'], "md5": document['md5']})
 
@@ -53,12 +53,10 @@ def watcher_produce():
                          producer.produce(topic, json.dumps(url, default=json_util.default).encode(), callback=delivery_callback)
                          mongo_id    = url["mongo_id"]
                          query = {'_id':ObjectId(mongo_id)}
-                         update = { "$set": { "processing": True, 'first_verify': datetime.utcnow()} } if 'first_verify' not in url.keys() \
-                                                                                                              or url['first_verify'] is None \
-                                                                                                       else { "$set": { "processing": True} }
+                         update = { "$set": { "processing": True} }
                          collection.update_many(query, update)
                     except:
-                         update = { "$set": { "processing": False , "last_verify": datetime.utcnow()} }
+                         update = { "$set": { "processing": False , "lastAttpemt": datetime.utcnow()} }
                          e_query = {'_id':ObjectId(mongo_id)}
                          collection.update_one(e_query, update)
                          return "Failed to delivery."

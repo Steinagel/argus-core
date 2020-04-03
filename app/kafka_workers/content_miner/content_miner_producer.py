@@ -27,7 +27,7 @@ def send(msg):
           try:
                doc    = collection.find(query)[0]
           except:
-               update = { "$set": { "processing": False , "last_verify": datetime.utcnow()} }
+               update = { "$set": { "processing": False , "lastAttpemt": datetime.utcnow()} }
                collection.update_one(query, update)
                return "Failed to find object"
           source_code = doc["source_code"]
@@ -36,7 +36,7 @@ def send(msg):
           try:
                parsed = parser.from_buffer(source_code)
           except:
-               update = { "$set": { "processing": False , "last_verify": datetime.utcnow()} }
+               update = { "$set": { "processing": False , "lastAttpemt": datetime.utcnow()} }
                collection.update_one(query, update)
                return "Failed to parse source code"
 
@@ -50,7 +50,7 @@ def send(msg):
           try:
                content = _clear_text(content)
           except:
-               update = { "$set": { "processing": False , "last_verify": datetime.utcnow()} }
+               update = { "$set": { "processing": False , "lastAttpemt": datetime.utcnow()} }
                collection.update_one(query, update)
                return "Failed to clear content"
           # Break into sentences
@@ -61,7 +61,7 @@ def send(msg):
           try:
                breaked_sent = _break_text(content)
           except:
-               update = { "$set": { "processing": False , "last_verify": datetime.utcnow()} }
+               update = { "$set": { "processing": False , "lastAttpemt": datetime.utcnow()} }
                collection.update_one(query, update)
                return "Failed to break into sentences"
 
@@ -103,11 +103,11 @@ def send(msg):
                     producer.produce(topic, json.dumps(data, default=json_util.default).encode(), callback=delivery_callback)
                     producer.flush()
           except:
-               update = { "$set": { "processing": False , "last_verify": datetime.utcnow()} }
+               update = { "$set": { "processing": False , "lastAttpemt": datetime.utcnow()} }
                collection.update_one(query, update)
                return "Failed to delivery"
      except:
-          update = { "$set": { "processing": False , "last_verify": datetime.utcnow()} }
+          update = { "$set": { "processing": False , "lastAttpemt": datetime.utcnow()} }
           query = {'_id':ObjectId(mongo_id)}
           collection.update_one(query, update)
           return "Unable to mine"

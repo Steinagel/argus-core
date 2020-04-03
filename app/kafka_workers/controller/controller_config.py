@@ -4,7 +4,8 @@ import os
 import jsonschema
 from pymongo import MongoClient 
 from bson import json_util, ObjectId
-
+from datetime import datetime
+# from math import ceil
 
 
 ### MongoDB
@@ -29,10 +30,12 @@ def get_all_urls():
             "name": _get_valid_field_value(el, "name"),
             "enabled": _get_valid_field_value(el, "enabled"),
             "processing": _get_valid_field_value(el, "processing"),
-            "last_changes": _get_valid_field_value(el, "last_changes"),
-            "first_verify": _get_valid_field_value(el, "first_verify"),
-            "last_verify": _get_valid_field_value(el, "last_verify"),
-            "analysis": _get_valid_field_value(el, "analysis")
+            "lastChange": _get_valid_field_value(el, "lastChange"),
+            "creationDate": _get_valid_field_value(el, "creationDate"),
+            "lastAttpemt": _get_valid_field_value(el, "lastAttpemt"),
+            "analysis": _get_valid_field_value(el, "analysis"),
+            "risky": _get_risky(el["analysis"]),
+            "language": _get_language(el)
         }
         list_elements.append(obj)
 
@@ -48,6 +51,50 @@ def get_url(id):
         return None
 
     return json.loads(json_util.dumps(element))
+
+def _get_risky(an_objs):
+    risky = 0
+    med_count = 1
+    hig_count = 1
+    low_count = 1
+    for obj in an_objs:
+        prob = obj["probability"]
+        if obj["has_rw"]:
+            prob*=5
+        else:
+            prob*=1
+
+        risky+=prob
+
+        if obj["risk_level"] == "medium":
+            med_count+=1.1
+        elif obj["risk_level"] == "low":
+            low_count+=1
+        else:
+            hig_count+=1.2
+
+    relation = hig_count+med_count+low_count
+
+    return round((((relation/risky)/low_count)*1000), 2) if risky > 0 else 0
+
+def _get_language(obj):
+    lang = _get_valid_field_value(obj, "language")
+
+    if lang == '' or lang == 'en':
+        return f"{lang} (0.0)"
+
+    score = 0
+    for sentence in obj["sentences"]:
+        for _on_sentence in sentence["sentence"]:
+            if _on_sentence["detectedLanguage"]["score"] == 1.0:
+                return f"{lang} (1)"
+            else:
+                score = score if _on_sentence["detectedLanguage"]["score"] < score \
+                                else _on_sentence["detectedLanguage"]["score"]
+
+    return f"{lang} ({score})"
+
+
 ##
 
 ### Elasticsearch
@@ -79,7 +126,9 @@ def add_new_url(data):
             "analysis": "",
             "source_code": "",
             "links": None,
-            "last_verify": None,
+            "lastAttpemt": None,
+            "lastChange": None,
+            'creationDate': datetime.utcnow(),
             "elasticsearch_id": None,
             "interval": 2
         }

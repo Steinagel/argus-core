@@ -27,7 +27,7 @@ def scrap(msg):
     try:
         tab_scrap = Scrap(url)
     except:
-        update    = { "$set": { "processing": False , "last_verify": datetime.utcnow()} }
+        update    = { "$set": { "processing": False , "lastAttpemt": datetime.utcnow()} }
         a_query   = {'_id':ObjectId(mongo_id)}
 
         collection.update_one(a_query, update)
@@ -35,7 +35,7 @@ def scrap(msg):
         return "Unable to scrap. Updating mongo for that."
 
     if tab_scrap.get_source_code() is None:
-        update  = { "$set": { "processing": False , "enabled": False, "last_verify": datetime.utcnow()} }
+        update  = { "$set": { "processing": False , "enabled": False, "lastAttpemt": datetime.utcnow()} }
         a_query = {'_id':ObjectId(mongo_id)}
 
         collection.update_one(a_query, update)
@@ -57,8 +57,8 @@ def scrap(msg):
                     { "source_code": tab_source_code, 
                       "links": tab_links, 
                       "md5": tab_md5, 
-                      "last_verify": datetime.utcnow(),
-                      "last_changes": datetime.utcnow()
+                      "lastAttpemt": datetime.utcnow(),
+                      "lastChange": datetime.utcnow()
                     } 
                 }
         query  = {'_id':ObjectId(mongo_id)}
@@ -72,12 +72,12 @@ def scrap(msg):
                 producer.produce(topic, msg, callback=delivery_callback)
                 producer.flush()
         except:
-            update = { "$set": { "processing": False , "last_verify": datetime.utcnow()} }
+            update = { "$set": { "processing": False , "lastAttpemt": datetime.utcnow()} }
             collection.update_one(query, update)
             return f"Failed to delivery message to {topic}"
     else:
         query    = {'_id':ObjectId(mongo_id)}
-        update   = { "$set": { "processing": False, "last_verify": datetime.utcnow()} }
+        update   = { "$set": { "processing": False, "lastAttpemt": datetime.utcnow()} }
         collection.update_one(query, update)
         logger.info(f"Finished scraper {url[:15]}... [without changes]")
 

@@ -19,7 +19,7 @@ def analyse(msg):
     sentences       = doc["sentences"] 
     analyze_result  = _analyzer(sentences)
 
-    update   = { "$set": { "processing": False , "analysis": analyze_result, "last_verify": datetime.utcnow()} }
+    update   = { "$set": { "processing": False , "analysis": analyze_result, "lastAttpemt": datetime.utcnow()} }
     
     collection.update_one(query, update)
 

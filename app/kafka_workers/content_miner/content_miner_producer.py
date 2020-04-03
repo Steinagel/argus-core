@@ -55,6 +55,7 @@ def send(msg):
                return "Failed to clear content"
           # Break into sentences
 
+          content_lang = language.from_buffer(content)
           en_sentences = []
           # Translation
           try:
@@ -63,6 +64,7 @@ def send(msg):
                update = { "$set": { "processing": False , "last_verify": datetime.utcnow()} }
                collection.update_one(query, update)
                return "Failed to break into sentences"
+
 
           for sentence in breaked_sent:
                _obj = {}
@@ -82,7 +84,13 @@ def send(msg):
           
           elasticsearch_id = _send_to_elasticsearch(data)
           # Updates mongodb
-          update = {"elasticsearch_id": elasticsearch_id, "sentences": en_sentences, "content": content}
+          update = {
+               "elasticsearch_id": elasticsearch_id, 
+               "sentences": en_sentences, 
+               "content": content, 
+               "language": content_lang, 
+               "metadata": metadata
+          }
           collection.update_one(query, { "$set": update })
 
           # Updates message

@@ -8,6 +8,9 @@ import os
 from pprint import pformat
 # import pickle
 # from sklearn.feature_extraction.text import CountVectorizer
+# from collections import Counter
+# from sklearn.naive_bayes import MultinomialNB
+# from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 
 ### Logger
 logger = logging.getLogger('consumer')

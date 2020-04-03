@@ -149,9 +149,7 @@ def _clear_text(text):
           text = re.sub('[\t\n]+', '. ', text)
           text = re.sub('[\n\t]+', '. ', text)
           text = re.sub('[\s ]+', ' ', text)
-          text = re.sub('[\\"]+', '\'', text)
           text = re.sub('[\"]+', '\'', text)
-          text = re.sub('(. )+', '. ', text)
           logger.info(f"Text cleared")
      else:
           logger.info(f"Text is None")

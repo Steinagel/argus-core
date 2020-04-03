@@ -33,7 +33,7 @@ def get_all_urls():
             "lastChange": _get_valid_field_value(el, "lastChange"),
             "creationDate": _get_valid_field_value(el, "creationDate"),
             "lastAttpemt": _get_valid_field_value(el, "lastAttpemt"),
-            "analysis": _get_valid_field_value(el, "analysis"),
+            "analysis": _get_analyze(el["analysis"]),
             "risky": _get_risky(el["analysis"]),
             "language": _get_language(el)
         }
@@ -64,18 +64,18 @@ def _get_risky(an_objs):
         else:
             prob*=1
 
-        risky+=prob
+        risky+=(prob if obj["risk_level"]=='low' else prob*prob)
 
         if obj["risk_level"] == "medium":
             med_count+=1.1
         elif obj["risk_level"] == "low":
-            low_count+=1
+            low_count+=1.5
         else:
-            hig_count+=1.2
+            hig_count+=1
 
     relation = hig_count+med_count+low_count
+    return round(((risky/relation))*10, 2) if risky > 0 else 0
 
-    return round((((relation/risky)/low_count)*1000), 2) if risky > 0 else 0
 
 def _get_language(obj):
     lang = _get_valid_field_value(obj, "language")
@@ -94,6 +94,10 @@ def _get_language(obj):
 
     return f"{lang} ({score})"
 
+def _get_analyze(obj):
+    s = sorted(obj, key = lambda i: (i['has_rw'] is True, i['risk_level'].lower() is 'high', i['probability']), reverse=True) 
+    print(s[0],s[-1])
+    return s[0]["text"]
 
 ##
 

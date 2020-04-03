@@ -89,8 +89,9 @@ def predict_page(string):
     probabilities = [{'text': page_sentences[proba[0]],
                       'probability': proba[1][1],
                       'has_rw': has_rw(page_sentences[proba[0]]),
-                      'risk_level': classify_risk(proba[1][1]*(2 if has_rw(page_sentences[proba[0]]) else 0.5))} 
-                    for proba in enumerate(loaded_model.predict_proba(count_vector.transform(page_sentences)))]
+                      'risk_level': 'high' if has_rw(page_sentences[proba[0]]) else classify_risk(proba[1][1])} 
+                    for proba in enumerate(loaded_model.predict_proba(count_vector.transform(page_sentences))) 
+                     if classify_risk(proba[1][1]) != 'low' or has_rw(page_sentences[proba[0]])]
 
     return probabilities
 

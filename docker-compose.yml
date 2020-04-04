@@ -14,12 +14,12 @@ services:
       - ./app/kafka_workers/controller:/usr/src/app/
     environment:
       WORKERS: 1
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: pasS123!
-      MONGO_INITDB_DATABASE: url_list
-      MONGO_INITDB_USERNAME: admin1
-      MONGO_INITDB_PASSWORD: pasS123
-      INITDB_COLLECTION: urls
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
+      MONGO_INITDB_USERNAME: ${MONGO_INITDB_USERNAME}
+      MONGO_INITDB_PASSWORD: ${MONGO_INITDB_PASSWORD}
+      INITDB_COLLECTION: ${INITDB_COLLECTION}
     networks:
       local-network:
         aliases:
@@ -40,10 +40,10 @@ services:
       - .:/usr/src/app/
     environment:
       WORKERS: 1
-      MONGO_INITDB_DATABASE: url_list
-      MONGO_INITDB_USERNAME: admin1
-      MONGO_INITDB_PASSWORD: pasS123
-      INITDB_COLLECTION: urls
+      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
+      MONGO_INITDB_USERNAME: ${MONGO_INITDB_USERNAME}
+      MONGO_INITDB_PASSWORD: ${MONGO_INITDB_PASSWORD}
+      INITDB_COLLECTION: ${INITDB_COLLECTION}
     networks:
       local-network:
         aliases:
@@ -64,10 +64,10 @@ services:
       - .:/usr/src/app/
     environment:
       WORKERS: 1
-      MONGO_INITDB_DATABASE: url_list
-      MONGO_INITDB_USERNAME: admin1
-      MONGO_INITDB_PASSWORD: pasS123
-      INITDB_COLLECTION: urls
+      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
+      MONGO_INITDB_USERNAME: ${MONGO_INITDB_USERNAME}
+      MONGO_INITDB_PASSWORD: ${MONGO_INITDB_PASSWORD}
+      INITDB_COLLECTION: ${INITDB_COLLECTION}
     networks:
       local-network:
         aliases:
@@ -93,12 +93,12 @@ services:
       TIKA_JAVA_ARGS: "-Xmx2g -Xmx2g"
       PYTHONIOENCODING: utf8
       WORKERS: 1
-      MONGO_INITDB_DATABASE: url_list
-      MONGO_INITDB_USERNAME: admin1
-      MONGO_INITDB_PASSWORD: pasS123
-      INITDB_COLLECTION: urls
-      TRANSLATOR_TEXT_SUBSCRIPTION_KEY: "7b0177d798304c46a2e5e8599bbefbda"
-      TRANSLATOR_TEXT_ENDPOINT: "https://curiosityy.cognitiveservices.azure.com/translator/text/v3.0"
+      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
+      MONGO_INITDB_USERNAME: ${MONGO_INITDB_USERNAME}
+      MONGO_INITDB_PASSWORD: ${MONGO_INITDB_PASSWORD}
+      INITDB_COLLECTION: ${INITDB_COLLECTION}
+      TRANSLATOR_TEXT_SUBSCRIPTION_KEY: ${TRANSLATOR_TEXT_SUBSCRIPTION_KEY}
+      TRANSLATOR_TEXT_ENDPOINT: ${TRANSLATOR_TEXT_ENDPOINT}
     networks:
       local-network:
         aliases:
@@ -120,10 +120,10 @@ services:
       - .:/usr/src/app/
     environment:
       WORKERS: 1
-      MONGO_INITDB_DATABASE: url_list
-      MONGO_INITDB_USERNAME: admin1
-      MONGO_INITDB_PASSWORD: pasS123
-      INITDB_COLLECTION: urls
+      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
+      MONGO_INITDB_USERNAME: ${MONGO_INITDB_USERNAME}
+      MONGO_INITDB_PASSWORD: ${MONGO_INITDB_PASSWORD}
+      INITDB_COLLECTION: ${INITDB_COLLECTION}
     networks:
       local-network:
         aliases:
@@ -171,12 +171,12 @@ services:
     environment:
       MONGO_DATA_DIR: /data/db
       MONGO_LOG_DIR: /dev/null
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: pasS123!
-      MONGO_INITDB_DATABASE: url_list
-      MONGO_INITDB_USERNAME: admin1
-      MONGO_INITDB_PASSWORD: pasS123
-      INITDB_COLLECTION: urls
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
+      MONGO_INITDB_USERNAME: ${MONGO_INITDB_USERNAME}
+      MONGO_INITDB_PASSWORD: ${MONGO_INITDB_PASSWORD}
+      INITDB_COLLECTION: ${INITDB_COLLECTION}
     volumes:
       - ./extras/mongo/init-mongo.sh:/docker-entrypoint-initdb.d/init-mongo.sh
       - ./extras/mongo/data/db:/data/db

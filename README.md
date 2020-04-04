@@ -1,5 +1,8 @@
 # Argus
 
+This Trial Version is in production at http://187.23.247.78:5010
+Enjoy it!
+
 ## Getting Started
 
 ...

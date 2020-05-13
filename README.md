@@ -17,4 +17,5 @@ _I will go to any layer of the internet to analyze for you_
 ##### The application diagram can be found here: https://ibm.ent.box.com/file/629684100269
 
 //Contact for more information
+
 contact = {slack: "Will Steinagel", email: "will.steinagel@ibm.com"}

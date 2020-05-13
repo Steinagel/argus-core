@@ -1,11 +1,20 @@
-This repo is only a secure version for you to know our code and idea.
+# Argus 
 
-The application diagram can be found here: https://ibm.ent.box.com/file/629684100269
+_I will go to any layer of the internet to analyze for you_
 
-Please access https://bitly.com/v2-IBM-Argus to give a look at Argus running.
+## Tooling
 
-The sites where Argus is looking at ProxyIt feature are safe; Try to paste some words from the sites and search some data in SearchIt too :)
+#Python :nail_care:
+#Apache-Kafka :sunglasses:
+#Apache-Tika :dancer:
+#Elasticsearch :metal:
+#MongoDB :muscle:
+#Scikit Learn :v:
 
-For now you will not be able to add url - because argus needs **an extra infra** ;) - BUT soon the trial version will guide you to do that :D
 
-~if you really want NOW to add an URL call me at slack (Will Steinagel)
+##### This repo is only a secure version for you to know our code and idea.
+
+##### The application diagram can be found here: https://ibm.ent.box.com/file/629684100269
+
+//Contact for more information
+contact = {slack: "Will Steinagel", email: "will.steinagel@ibm.com"}

@@ -1,5 +1,5 @@
 elasticsearch==7.6.0
-flask==1.1.1
+flask==2.3.2
 Flask-Cors==3.0.8
 gunicorn==20.0.4
 jsonschema==3.2.0

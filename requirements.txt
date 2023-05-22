@@ -1,6 +1,6 @@
 tika==1.24
 textwrap3==0.9.2
-requests==2.23.0
+requests==2.31.0
 lxml==4.5.0
 validators==0.14.2
 schema==0.7.1
